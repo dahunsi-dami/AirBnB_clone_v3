@@ -78,11 +78,14 @@ class DBStorage:
     def get(self, cls, id):
         """is available in FileStorage and DBStorage and documented"""
 
-        for clss in classes:
-            if cls is classes[clss] or cls is clss:
-                obj = self.__session.query(classes[clss]).all()
-                for objs in obj:
-                    return (objs)
+        if cls is not None:
+            for clss in classes:
+                if cls is classes[clss] or cls is clss:
+                    obj = self.__session.query(classes[clss]).all()
+                    for objs in obj:
+                        return (objs)
+        else:
+            return None
 
     def count(self, cls=None):
         """is available in FileStorage and DBStorage and documented"""

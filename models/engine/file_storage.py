@@ -73,28 +73,16 @@ class FileStorage:
         """Update DBStorage and FileStorage"""
 
         if cls is not None:
-            for key, value in FileStorage.__objects.items():
-                if cls == value.__class__:
-                    anodakey = FileStorage.__objects[key]
-                    return (f"{anodakey}")
+            for key, value in self.all(cls).items():
+                if value.id == id:
+                    return (value)
         else:
             return None
 
     def count(self, cls=None):
         """Update DBStorage and FileStorage"""
 
-        i = 0
-        classes = {"Amenity": Amenity, "City": City,
-                   "Place": Place, "Review": Review,
-                   "State": State, "User": User}
         if cls is not None:
-            for key, value in FileStorage.__objects.items():
-                if cls == value.__class__:
-                    i += 1
-            return (i)
+            return (len(self.all(cls)))
         else:
-            for cls, clsvalue in classes.items():
-                for key, value in FileStorage.__objects.items():
-                    if clsvalue == value.__class__:
-                        i += 1
-            return (i)
+            return (len(FileStorage.__objects))

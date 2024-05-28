@@ -72,10 +72,13 @@ class FileStorage:
     def get(self, cls, id):
         """Update DBStorage and FileStorage"""
 
-        for key, value in FileStorage.__objects.items():
-            if cls == value.__class__:
-                anodakey = FileStorage.__objects[key]
-                return (f"{anodakey}")
+        if cls is not None:
+            for key, value in FileStorage.__objects.items():
+                if cls == value.__class__:
+                    anodakey = FileStorage.__objects[key]
+                    return (f"{anodakey}")
+        else:
+            return None
 
     def count(self, cls=None):
         """Update DBStorage and FileStorage"""

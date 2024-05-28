@@ -79,26 +79,18 @@ class DBStorage:
         """is available in FileStorage and DBStorage and documented"""
 
         if cls is not None:
-            for clss in classes:
-                if cls is classes[clss] or cls is clss:
-                    obj = self.__session.query(classes[clss]).all()
-                    for objs in obj:
-                        return (objs)
+            for i, value in self.all().items():
+                part = i.split(".")[1]
+                if part == id:
+                    return (value)
         else:
             return None
 
     def count(self, cls=None):
         """is available in FileStorage and DBStorage and documented"""
 
-        i = 0
         if cls is not None:
-            for clss in classes:
-                if cls is classes[clss] or cls is clss:
-                    obj = self.__session.query(classes[clss]).all()
-                    return len(obj)
+            return len(self.all(cls))
 
         else:
-            for clss in classes:
-                obj = self.__session.query(classes[clss]).all()
-                i += len(obj)
-            return (i)
+            return len(self.all())

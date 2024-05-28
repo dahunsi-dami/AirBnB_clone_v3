@@ -74,3 +74,37 @@ class DBStorage:
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
+
+    def get(self, cls, id):
+        """is available in FileStorage and DBStorage and documented"""
+
+        new_dict = {}
+        for clss in classes:
+            if cls is classes[clss] or cls is clss:
+                objs = self.__session.query(classes[clss]).all()
+                for obj in objs:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    new_dict[key] = obj.to_dict()
+                    anodakey = new_dict[key]
+                return (f"[{obj.__class__.__name__}] ({id}) {anodakey}")
+        else:
+            return (None)
+
+    def count(self, cls=None):
+        """is available in FileStorage and DBStorage and documented"""
+
+        j = 0
+        if cls is not None:
+            for clss in classes:
+                if cls is classes[clss] or cls is clss:
+                    objs = self.__session.query(classes[clss]).all()
+                    for obj in objs:
+                        j += 1
+            return (j)
+        else:
+            for clss in classes:
+                objs = self.__session.query(classes[clss]).all()
+                for obj in objs:
+                    j += 1
+                j = j
+            return (j)

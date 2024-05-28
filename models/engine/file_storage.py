@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+import uuid
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -32,7 +33,6 @@ class FileStorage:
                 if cls == value.__class__ or cls == value.__class__.__name__:
                     new_dict[key] = value
             return new_dict
-        return self.__objects
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
@@ -68,3 +68,41 @@ class FileStorage:
     def close(self):
         """call reload() method for deserializing the JSON file to objects"""
         self.reload()
+
+    def get(self, cls, id):
+        """"""
+
+        if cls is not None:
+            #FileStorage.__objects = cls.to_dict()
+            for key, value in FileStorage.__objects.items():
+                if cls == value.__class__.__name__ or cls == value.__class__:
+                    brt = str(cls)
+                    spt = brt.split(".")[-1]
+                    last = spt.split("'")[0]
+                    anodavalue = FileStorage.__objects[key].to_dict()
+                    return(f"[{last}] ({id}) {anodavalue}")
+        else:
+            return(None)
+
+    def count(self, cls=None):
+        """"""
+        i = 0
+        j = 0
+        classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
+           "Place": Place, "Review": Review, "State": State, "User": User}
+        if cls is not None:
+            for key, value in FileStorage.__objects.items():
+                if cls == value.__class__.__name__ or cls == value.__class__:
+                    anodavalue = FileStorage.__objects[key].to_dict()
+                    for srt in anodavalue:
+                        i += 1
+                    return(i)
+        else:
+            for key, dclass in classes.items():
+                for anodakey, value in FileStorage.__objects.items():
+                    if dclass == value.__class__.__name__ or dclass == value.__class__:
+                        avalue = FileStorage.__objects[anodakey].to_dict()
+                        for srt in avalue:
+                            j += 1
+                j = j
+            return(j)

@@ -76,7 +76,7 @@ class DBStorage:
         self.__session.remove()
 
     def get(self, cls, id):
-        """"""
+        """is available in FileStorage and DBStorage and documented"""
 
         new_dict = {}
         for clss in classes:
@@ -91,7 +91,7 @@ class DBStorage:
             return (None)
 
     def count(self, cls=None):
-        """"""
+        """is available in FileStorage and DBStorage and documented"""
 
         j = 0
         if cls is not None:

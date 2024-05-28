@@ -86,9 +86,9 @@ class DBStorage:
                     key = obj.__class__.__name__ + '.' + obj.id
                     new_dict[key] = obj.to_dict()
                     anodakey = new_dict[key]
-                return(f"[{obj.__class__.__name__}] ({id}) {anodakey}")
+                return (f"[{obj.__class__.__name__}] ({id}) {anodakey}")
         else:
-            return(None)
+            return (None)
 
     def count(self, cls=None):
         """"""
@@ -100,11 +100,11 @@ class DBStorage:
                     objs = self.__session.query(classes[clss]).all()
                     for obj in objs:
                         j += 1
-            return(j)
+            return (j)
         else:
             for clss in classes:
                 objs = self.__session.query(classes[clss]).all()
                 for obj in objs:
                     j += 1
                 j = j
-            return(j)
+            return (j)

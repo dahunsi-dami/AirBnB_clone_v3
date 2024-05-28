@@ -55,7 +55,7 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
+        except FileNotFoundError:
             pass
 
     def delete(self, obj=None):
@@ -70,39 +70,42 @@ class FileStorage:
         self.reload()
 
     def get(self, cls, id):
-        """"""
+        """Update DBStorage and FileStorage"""
 
         if cls is not None:
-            #FileStorage.__objects = cls.to_dict()
+            # FileStorage.__objects = cls.to_dict()
             for key, value in FileStorage.__objects.items():
                 if cls == value.__class__.__name__ or cls == value.__class__:
                     brt = str(cls)
                     spt = brt.split(".")[-1]
                     last = spt.split("'")[0]
                     anodavalue = FileStorage.__objects[key].to_dict()
-                    return(f"[{last}] ({id}) {anodavalue}")
+                    return (f"[{last}] ({id}) {anodavalue}")
         else:
-            return(None)
+            return (None)
 
     def count(self, cls=None):
-        """"""
+        """Update DBStorage and FileStorage"""
         i = 0
         j = 0
-        classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
-           "Place": Place, "Review": Review, "State": State, "User": User}
+        classes = {"Amenity": Amenity, "BaseModel": BaseModel,
+                   "City": City, "Place": Place,
+                   "Review": Review, "State": State, "User": User}
         if cls is not None:
             for key, value in FileStorage.__objects.items():
                 if cls == value.__class__.__name__ or cls == value.__class__:
                     anodavalue = FileStorage.__objects[key].to_dict()
                     for srt in anodavalue:
                         i += 1
-                    return(i)
+                    return (i)
         else:
             for key, dclass in classes.items():
-                for anodakey, value in FileStorage.__objects.items():
-                    if dclass == value.__class__.__name__ or dclass == value.__class__:
-                        avalue = FileStorage.__objects[anodakey].to_dict()
+                for anod, value in FileStorage.__objects.items():
+                    park = value.__class__.__name__
+                    pik = value.__class__
+                    if dclass == park or dclass == pik:
+                        avalue = FileStorage.__objects[anod].to_dict()
                         for srt in avalue:
                             j += 1
                 j = j
-            return(j)
+            return (j)

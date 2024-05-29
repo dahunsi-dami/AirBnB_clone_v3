@@ -69,7 +69,7 @@ test_db_storage.py'])
 
 
 class TestDBStorage(unittest.TestCase):
-    """Test the FileStorage class"""
+    """Test the DBStorage class"""
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_all_returns_dict(self):
         """Test that all returns a dictionaty"""
@@ -90,9 +90,21 @@ class TestDBStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_get(self):
         """test that returns object based on the class & its ID"""
-        pass
+        a_state = State(name="Ogun")
+        a_state.save()
+        a_amenity = Amenity(name="fan")
+        a_amenity.save()
+        self.assertIs(a_state, models.storage.get(State, a_state.id))
+        self.assertIs(a_amenity, models.storage.get(Amenity, a_amenity.id))
+        self.assertIs(None, models.storage.get(State, "id"))
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_count(self):
         """Test to return no. of objects in store matching given class"""
-        pass
+        kaunt = models.storage.count()
+        a_state = State(name="Oyo")
+        a_state.save()
+        a_amenity = Amenity(name="Inverter")
+        a_amenity.save()
+        self.assertEqual(models.storage.count(State), kaunt + 1)
+        self.assertEqual(models.storage.count(), kaunt + 2)

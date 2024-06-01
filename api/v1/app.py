@@ -6,6 +6,7 @@ from api.v1.views import app_views
 from flask import Flask
 import os
 from flask import jsonify, Response
+import json
 
 storage_t = os.environ.get('HBNB_TYPE_STORAGE')
 host = os.getenv('HOST', '0.0.0.0')
@@ -25,7 +26,8 @@ def hint():
     response = Response(status=404)
     if response.status_code == 404:
         rent = {"error": "Not found"}
-        return jsonify(rent)
+        prerent =  json.dumps(rent, indent=2) + '\n'
+        return Response(prerent, mimetype='application/json')
 
 
 if __name__ == "__main__":

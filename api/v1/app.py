@@ -26,7 +26,10 @@ def hint():
     rent = {
         "error": "Not found"
     }
-    return jsonify(rent), 404
+    res = jsonify(rent)
+    res.status_code = 404
+
+    return res
 
 
 if __name__ == "__main__":

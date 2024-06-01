@@ -21,7 +21,7 @@ def close(ore):
     storage.close()
 
 
-@app.route('/api/v1/nop', methods=['GET'], strict_slashes=False)
+@app.errorhandler(404)
 def hint():
     rent = {
         "error": "Not found"

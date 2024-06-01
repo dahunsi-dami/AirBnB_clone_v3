@@ -22,7 +22,7 @@ def close(ore):
 
 
 @app.errorhandler(404)
-def hint():
+def hint(exception):
     rent = {
         "error": "Not found"
     }

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-""""""
+"""Your first endpoint (route) will be to return the status of your API"""
 
-from flask import Flask
+from flask import Blueprint
+app_views = Blueprint('app_views', __name__, url_prefix='/api/v1')
 
-i
+from api.v1.views.index import *

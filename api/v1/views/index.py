@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""""""
+"""Your first endpoint (route) will be to return the status of your API"""
 
 from flask import Flask, Response
 from api.v1.views import app_views

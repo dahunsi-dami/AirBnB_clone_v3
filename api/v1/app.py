@@ -5,6 +5,7 @@ from models import storage
 from api.v1.views import app_views
 from flask import Flask
 import os
+from flask import jsonify, Response
 
 storage_t = os.environ.get('HBNB_TYPE_STORAGE')
 host = os.getenv('HOST', '0.0.0.0')
@@ -17,6 +18,14 @@ app.register_blueprint(app_views)
 @app.teardown_appcontext
 def close(ore):
     storage.close()
+
+
+@app.route('/api/v1/nop', methods=['GET'], strict_slashes=False)
+def hint():
+    response = Response(status=404)
+    if response.status_code == 404:
+        rent = {"error": "Not found"}
+        return jsonify(rent)
 
 
 if __name__ == "__main__":

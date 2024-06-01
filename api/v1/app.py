@@ -26,9 +26,7 @@ def hint():
     response = Response(status=404)
     if response.status_code == 404:
         rent = {"error": "Not found"}
-        prerent =  json.dumps(rent, indent=2) + '\n'
-        return Response(prerent, mimetype='application/json')
-
+        return jsonify(rent)
 
 if __name__ == "__main__":
     app.run(host=host, port=port, threaded=True)

@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """Same as State, create a new view for City"""
 
-from models.base_model import BaseModel
 from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
-from models.state import State
+from models.base_model import BaseModel
 from models import storage
+from models.state import State
 
 
 @app_views.route("/states/<string:state_id>/cities",

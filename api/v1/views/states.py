@@ -39,10 +39,10 @@ def create_name():
     data = request.get_json()
 
     if data is None:
-        abort(400, decription="Not a JSON")
+        abort(400, "Not a JSON")
 
     if 'name' not in data:
-        abort(400, description="Missing name")
+        abort(400, "Missing name")
 
     new_state = State(**data)
     storage.new(new_state)
@@ -61,7 +61,7 @@ def putin(state_id):
 
     data = request.get_json()
     if data is None:
-        abort(400, description="Not a JSON")
+        abort(400, "Not a JSON")
 
     ignore = ['id', 'created_at', 'updated_at']
     for key, value in data.items():

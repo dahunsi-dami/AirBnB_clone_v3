@@ -10,7 +10,7 @@ import json
 
 storage_t = os.environ.get('HBNB_TYPE_STORAGE')
 host = os.getenv('HOST', '0.0.0.0')
-port = os.getenv('HBNB_API_PORT', 5000)
+port = int(os.getenv('HBNB_API_PORT', 5000))
 
 app = Flask(__name__)
 app.register_blueprint(app_views)

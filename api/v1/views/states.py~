@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+""""""
+
+from models.base_model import BaseModel
+from api.v1.views import app_views
+from flask import Flask, jsonify, abort
+from models.state import State
+from models import storage
+
+@app_views.route('/states/', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<string:id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<string:id>', methods=['POST'], strict_slashes=False)
+def view(id=None):
+    if id is None:
+        states = storage.all(State).values()
+        lists = [state.to_dict() for state in states]
+        return jsonify(lists)
+    else:
+        state = storage.get(State, id)
+        if state is None:
+            abort(404)
+        return jsonify(state.to_dict())
+
+@app_views.route('/states/<string:id>', methods=['DELETE'], strict_slashes=False)
+def delete(id):
+    state = storage.get(State, id)
+    if state is None:
+        abort(404)
+    storage.delete(state)
+    storage.save()
+    return jsonify({}), 200

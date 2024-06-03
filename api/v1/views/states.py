@@ -36,7 +36,7 @@ def delete(state_id):
 
 @app_views.route('/states/', methods=['POST'], strict_slashes=False)
 def create_name():
-    data = request.get_json()
+    data = request.get_json(silent=True)
 
     if data is None:
         abort(400, "Not a JSON")
@@ -58,7 +58,7 @@ def putin(state_id):
     if var is None:
         abort(404)
 
-    data = request.get_json()
+    data = request.get_json(silent=True)
     if data is None:
         abort(400, "Not a JSON")
 

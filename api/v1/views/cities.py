@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """Same as State, create a new view for City"""
-
 from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
 from models.base_model import BaseModel

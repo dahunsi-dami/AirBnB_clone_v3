@@ -17,7 +17,7 @@ def List(state_id):
 
     if listc is None:
         abort(404)
-
+    return jsonify(listc.to_dict())
 
 @app_views.route("/cities/<city_id>",
                  methods=['GET'], strict_slashes=False)
@@ -27,6 +27,7 @@ def citylist(city_id):
 
     if citic is None:
         abort(404)
+    return jsonify(citic.to_dict())
 
 
 @app_views.route("/cities/<city_id>",

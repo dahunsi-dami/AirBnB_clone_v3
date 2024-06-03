@@ -69,7 +69,7 @@ class FileStorage:
         self.reload()
 
     def get(self, cls, id):
-        """Update DBStorage and FileStorage"""
+       """Update DBStorage and FileStorage"""
 
         if cls is not None:
             for key, value in self.all(cls).items():

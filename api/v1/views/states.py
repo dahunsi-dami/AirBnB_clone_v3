@@ -23,9 +23,10 @@ def view(id=None):
         return jsonify(state.to_dict())
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'])
+@app_views.route('/states/<string:state_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete(state_id):
-    state = storage.get(State, str(state_id))
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
     storage.delete(state)
@@ -38,7 +39,7 @@ def create_name():
     data = request.get_json()
 
     if data is None:
-        abort(400, decription="Not a json")
+        abort(400, decription="Not a JSON")
 
     if 'name' not in data:
         abort(400, description="Missing name")
@@ -47,12 +48,13 @@ def create_name():
     storage.new(new_state)
     storage.save()
 
-    return jsonify(new_state.to_dict()), 200
+    return jsonify(new_state.to_dict()), 201
 
 
-@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/states/<string:state_id>', methods=['PUT'],
+                 strict_slashes=False)
 def putin(state_id):
-    var = storage.get(State, str(state_id))
+    var = storage.get(State, state_id)
 
     if var is None:
         abort(404, description="Not a json")

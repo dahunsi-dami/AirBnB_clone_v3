@@ -57,11 +57,11 @@ def putin(state_id):
     var = storage.get(State, state_id)
 
     if var is None:
-        abort(404, description="Not a json")
+        abort(404)
 
     data = request.get_json()
     if data is None:
-        abort(400, description="Not a json")
+        abort(400, description="Not a JSON")
 
     ignore = ['id', 'created_at', 'updated_at']
     for key, value in data.items():

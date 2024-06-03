@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Same as State, create a new view for City objects that handles"""
+"""Same as State, create a new view for City"""
 
 from models.base_model import BaseModel
 from api.v1.views import app_views
@@ -11,6 +11,7 @@ from models import storage
 @app_views.route("/states/<string:state_id>/cities",
                  methods=['GET'], strict_slashes=False)
 def List(state_id):
+    """Same as State, create a new view for City"""
     listc = storage.get(State, state_id)
 
     if listc is None:
@@ -20,6 +21,7 @@ def List(state_id):
 @app_views.route("/cities/<city_id>",
                  methods=['GET'], strict_slashes=False)
 def citylist(city_id):
+    """Same as State, create a new view for City"""
     citic = storage.get(City, state_id)
 
     if citic is None:
@@ -29,6 +31,7 @@ def citylist(city_id):
 @app_views.route("/cities/<city_id>",
                  methods=["DELETE"], strict_slashes=False)
 def deleted(city_id):
+    """Same as State, create a new view for City"""
     citye = storage.get(City, city_id)
 
     if citye is None:
@@ -43,6 +46,7 @@ def deleted(city_id):
 @app_views.route("states/<state_id>/cities",
                  methods=["POST"], strict_slashes=False)
 def created(state_id):
+    """Same as State, create a new view for City"""
     data = request.get_json(silent=True)
     links = storage.get(State, state_id)
 
@@ -64,6 +68,7 @@ def created(state_id):
 @app_views.route("cities/<city_id>",
                  methods=["POST"], strict_slashes=False)
 def puttin(city_id):
+    """Same as State, create a new view for City"""
     link = storage.get(City, city_id)
 
     if link is None:

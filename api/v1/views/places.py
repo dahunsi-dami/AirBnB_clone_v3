@@ -12,7 +12,7 @@ from models.state import State
 
 
 @city_views.route("/<string:city_id>/places",
-                 methods=["GET"], strict_slashes=False, endpoint='listcity')
+                  methods=["GET"], strict_slashes=False, endpoint='listcity')
 def listcity(city_id):
     """Same as State, create a new view for City"""
     place_list = []
@@ -52,7 +52,7 @@ def deleted_place(place_id):
 
 
 @city_views.route("/<string:city_id>/places",
-                 methods=["POST"], strict_slashes=False)
+                  methods=["POST"], strict_slashes=False)
 def created_place(city_id):
     """Same as State, create a new view for City"""
     data = request.get_json(silent=True)

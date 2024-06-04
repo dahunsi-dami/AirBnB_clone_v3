@@ -6,6 +6,7 @@ from flask import abort, Flask, jsonify, request
 from api.v1.views import app_views
 from models import storage
 from models.state import State
+from models.city import City
 
 
 @app_views.route("/states/<string:state_id>/cities",
@@ -26,11 +27,10 @@ def List(state_id):
                  methods=['GET'], strict_slashes=False)
 def citylist(city_id):
     """Same as State, create a new view for City"""
-    citic = storage.get(City, city_id)
-
-    if citic is None:
+    listc = storage.get(City, city_id)
+    if listc is None:
         abort(404)
-    return jsonify(citic.to_dict())
+    return jsonify(listc.to_dict())
 
 
 @app_views.route("/cities/<string:city_id>",

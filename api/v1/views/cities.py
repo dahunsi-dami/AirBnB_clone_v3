@@ -5,7 +5,7 @@ Same as State, create a new view for City
 from flask import abort, Flask, jsonify, request
 from api.v1.views import app_views
 from models import storage
-from models.city import City
+from models.state import State
 
 
 @app_views.route("/states/<string:state_id>/cities",

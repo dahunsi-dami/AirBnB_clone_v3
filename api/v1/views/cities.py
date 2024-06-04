@@ -21,6 +21,7 @@ def List(state_id):
         city_list.append(obj.to_dict())
     return jsonify(city_list)
 
+
 @app_views.route("/cities/<string:city_id>",
                  methods=['GET'], strict_slashes=False)
 def citylist(city_id):
@@ -63,6 +64,7 @@ def created(state_id):
     if 'name' not in data:
         abort(400, "Missing name")
 
+    data["state_id"] = state_id
     new_city = City(**data)
     storage.save()
 
@@ -82,9 +84,9 @@ def puttin(city_id):
     if data is None:
         abort(400, "Not a JSON")
 
-    ignore = ["id", "state_id", "updated_at"]
+    ignore = ["id", "state_id", "created_at", "updated_at"]
     for key, value in data.items():
         if key not in ignore:
             setattr(link, key, value)
     storage.save()
-    return jsonify(link.to_dict()), 201
+    return jsonify(link.to_dict()), 200

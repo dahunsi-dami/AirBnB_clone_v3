@@ -10,7 +10,7 @@ import json
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
-@app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/users/<string:user_id>', methods=['GET'], strict_slashes=False)
 def vuser(user_id):
     if user_id is None:
         users = storage.all(User).values()
@@ -23,7 +23,7 @@ def vuser(user_id):
         return jsonify(user.to_dict())
 
 
-@app_views.route('/users/<user_id>', methods=['DELETE'],
+@app_views.route('/users/<string:user_id>', methods=['DELETE'],
                  strict_slashes=False)
 def duser(user_id):
     user = storage.get(User, user_id)

@@ -10,7 +10,8 @@ import json
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
-@app_views.route('/users/<string:user_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/users/<string:user_id>',
+                 methods=['GET'], strict_slashes=False)
 def vuser(user_id=None):
     if user_id is None:
         users = storage.all(User).values()
@@ -41,8 +42,11 @@ def create_user():
     if data is None:
         abort(400, "Not a JSON")
 
-    if 'name' not in data:
-        abort(400, "Missing name")
+    if 'email' not in data:
+        abort(400, "Missing email")
+
+    if 'password' not in data:
+        abort(400, "Missing password")
 
     new_user = User(**data)
     storage.save()

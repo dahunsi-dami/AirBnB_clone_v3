@@ -11,7 +11,7 @@ import json
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 @app_views.route('/users/<string:user_id>', methods=['GET'], strict_slashes=False)
-def vuser(user_id):
+def vuser(user_id=None):
     if user_id is None:
         users = storage.all(User).values()
         lists = [user.to_dict() for user in users]

@@ -10,12 +10,12 @@ import json
 
 
 @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
-@app_views.route('/amenities/<amenity_id>',
+@app_views.route('/amenities/<string:amenity_id>',
                  methods=['GET'], strict_slashes=False)
-def vie(amenity_id):
+def vie(amenity_id=None):
     if amenity_id is None:
         amenities = storage.all(Amenity).values()
-        lists = [state.to_dict() for amenity in amenities]
+        lists = [amenity.to_dict() for amenity in amenities]
         return jsonify(lists)
     else:
         amenity = storage.get(Amenity, amenity_id)
@@ -24,7 +24,7 @@ def vie(amenity_id):
         return jsonify(amenity.to_dict())
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['DELETE'],
+@app_views.route('/amenities/<string:amenity_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delet(amenity_id):
     amenity = storage.get(Amenity, amenity_id)
@@ -51,7 +51,7 @@ def create_n():
     return jsonify(new_amenity.to_dict()), 201
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['PUT'],
+@app_views.route('/amenities/<string:amenity_id>', methods=['PUT'],
                  strict_slashes=False)
 def pute(amenity_id):
     var = storage.get(Amenity, amenity_id)

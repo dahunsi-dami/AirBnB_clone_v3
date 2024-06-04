@@ -12,7 +12,7 @@ from models.state import State
 
 
 @app_views.route("/api/v1/cities/<string:city_id>/places",
-                 methods=['GET'], strict_slashes=False)
+                 methods=["GET"], strict_slashes=False, endpoint='listcity')
 def listcity(city_id):
     """Same as State, create a new view for City"""
     place_list = []
@@ -26,7 +26,7 @@ def listcity(city_id):
 
 
 @app_views.route("/places/<string:place_id>",
-                 methods=['GET'], strict_slashes=False)
+                 methods=["GET"], strict_slashes=False)
 def placelist(place_id):
     """Same as State, create a new view for City"""
     citic = storage.get(Place, place_id)
@@ -67,12 +67,14 @@ def created_place(city_id):
     if 'name' not in data:
         abort(400, "Missing name")
 
-    new_data = storage.get(User, user_id)
+    new_data = storage.get(User, data["user_id"])
+
+    if new_data is None:
+        abort(404)
 
     if 'user_id' not in new_data:
         abort(400, "Missing user_id")
 
-    data["user_id"] = user_id
     data["city_id"] = city_id
     new_place = Place(**data)
     storage.save()
@@ -81,7 +83,7 @@ def created_place(city_id):
 
 
 @app_views.route("/places/<string:place_id>",
-                 methods=["POST"], strict_slashes=False)
+                 methods=["PUT"], strict_slashes=False)
 def put_place(place_id):
     """Same as State, create a new view for City"""
     link = storage.get(Place, place_id)

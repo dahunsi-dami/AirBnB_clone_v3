@@ -12,11 +12,14 @@ from models.city import City
                  methods=['GET'], strict_slashes=False)
 def List(state_id):
     """Same as State, create a new view for City"""
+    city_list = []
     listc = storage.get(State, state_id)
 
     if listc is None:
         abort(404)
-    return jsonify(listc.to_dict())
+    for obj in listc.cities:
+        city_list.append(obj.to_dict())
+    return jsonify(city_list)
 
 @app_views.route("/cities/<city_id>",
                  methods=['GET'], strict_slashes=False)

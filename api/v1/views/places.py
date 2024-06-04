@@ -72,8 +72,8 @@ def created_place(city_id):
     if new_data is None:
         abort(404)
 
-    if 'user_id' not in new_data:
-        abort(400, "Missing user_id")
+    if 'user_id' not in data:
+        abort(400, "Missing {}".format(data[user_id]))
 
     data["city_id"] = city_id
     new_place = Place(**data)

@@ -21,7 +21,7 @@ def List(state_id):
         city_list.append(obj.to_dict())
     return jsonify(city_list)
 
-@app_views.route("/cities/<city_id>",
+@app_views.route("/cities/<string:city_id>",
                  methods=['GET'], strict_slashes=False)
 def citylist(city_id):
     """Same as State, create a new view for City"""
@@ -32,7 +32,7 @@ def citylist(city_id):
     return jsonify(citic.to_dict())
 
 
-@app_views.route("/cities/<city_id>",
+@app_views.route("/cities/<string:city_id>",
                  methods=["DELETE"], strict_slashes=False)
 def deleted(city_id):
     """Same as State, create a new view for City"""
@@ -47,7 +47,7 @@ def deleted(city_id):
     return jsonify({}), 200
 
 
-@app_views.route("states/<state_id>/cities",
+@app_views.route("states/<string:state_id>/cities",
                  methods=["POST"], strict_slashes=False)
 def created(state_id):
     """Same as State, create a new view for City"""
@@ -69,7 +69,7 @@ def created(state_id):
     return jsonify(new_city.to_dict()), 201
 
 
-@app_views.route("cities/<city_id>",
+@app_views.route("cities/<string:city_id>",
                  methods=["PUT"], strict_slashes=False)
 def puttin(city_id):
     """Same as State, create a new view for City"""

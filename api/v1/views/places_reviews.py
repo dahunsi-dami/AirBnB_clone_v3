@@ -8,19 +8,24 @@ from api.v1.views import app_views
 from models.base_model import BaseModel
 from models import storage
 from models.review import Review
+from models.place import Place
 
 
-@app_views.route("/places/<place_id>/reviews",
+@app_views.route("/places/<string:place_id>/reviews",
                  methods=['GET'], strict_slashes=False)
 def List_review(place_id):
     """Same as State, create a new view for City"""
+    review_list = []
     listc = storage.get(Place, place_id)
 
     if listc is None:
         abort(404)
+    for obj in listc.reviews:
+        review_list.append(obj.to_dict())
+    return jsonify(city_list)
 
 
-@app_views.route("/reviews/<review_id>",
+@app_views.route("/reviews/<string:review_id>",
                  methods=['GET'], strict_slashes=False)
 def reviewlist(review_id):
     """Same as State, create a new view for City"""
@@ -30,7 +35,7 @@ def reviewlist(review_id):
         abort(404)
 
 
-@app_views.route("/reviews/<review_id>",
+@app_views.route("/reviews/<string:review_id>",
                  methods=["DELETE"], strict_slashes=False)
 def deleted_review(review_id):
     """Same as State, create a new view for City"""
@@ -45,7 +50,7 @@ def deleted_review(review_id):
     return jsonify({}), 200
 
 
-@app_views.route("/places/<place_id>/reviews",
+@app_views.route("/places/<string:place_id>/reviews",
                  methods=["POST"], strict_slashes=False)
 def created_place_review(place_id):
     """Same as State, create a new view for City"""
@@ -58,12 +63,12 @@ def created_place_review(place_id):
     if data is None:
         abort(400, "Not a JSON")
 
-    link_user = storage.get(Place, place_id)
+    link_user = storage.get(Place, data[user_id])
     if link_user is None:
-        abort(404, "Missing user_id")
+        abort(404)
 
-    if 'user_id' not in link_user:
-        abort(400, "Missing user_id")
+    if 'user_id' not in data:
+        abort(400, f"Missing {data[user_id]}")
 
     if 'text' not in data:
         abort(400, "Missing text")
@@ -74,7 +79,7 @@ def created_place_review(place_id):
     return jsonify(new_place_review.to_dict()), 201
 
 
-@app_views.route("/reviews/<review_id>",
+@app_views.route("/reviews/<string:review_id>",
                  methods=["POST"], strict_slashes=False)
 def put_place_review(review_id):
     """Same as State, create a new view for City"""

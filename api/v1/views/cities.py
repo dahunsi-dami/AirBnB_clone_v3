@@ -70,7 +70,7 @@ def created(state_id):
 
 
 @app_views.route("cities/<city_id>",
-                 methods=["POST"], strict_slashes=False)
+                 methods=["PUT"], strict_slashes=False)
 def puttin(city_id):
     """Same as State, create a new view for City"""
     link = storage.get(City, city_id)
@@ -87,4 +87,4 @@ def puttin(city_id):
         if key not in ignore:
             setattr(link, key, value)
     storage.save()
-    return jsonify(link.to_dict()), 200
+    return jsonify(link.to_dict()), 201

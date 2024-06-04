@@ -70,13 +70,12 @@ class FileStorage:
 
     def get(self, cls, id):
        """Update DBStorage and FileStorage"""
-
-        if cls is not None:
-            for key, value in self.all(cls).items():
-                if value.id == id:
-                    return (value)
-        else:
-            return None
+       if cls is not None:
+           for key, value in self.all(cls).items():
+               if value.id == id:
+                   return (value)
+       else:
+           return None
 
     def count(self, cls=None):
         """Update DBStorage and FileStorage"""

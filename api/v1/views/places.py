@@ -3,7 +3,7 @@
 Same as State, create a new view for City
 """
 from flask import abort, Flask, jsonify, request
-from api.v1.views import app_views, city_views
+from api.v1.views import app_views
 from models import storage
 from models.place import Place
 from models.city import City
@@ -11,7 +11,7 @@ from models.user import User
 from models.state import State
 
 
-@city_views.route("/<string:city_id>/places",
+@app_views.route("/cities/<string:city_id>/places",
                   methods=["GET"], strict_slashes=False, endpoint='listcity')
 def listcity(city_id):
     """Same as State, create a new view for City"""
@@ -51,7 +51,7 @@ def deleted_place(place_id):
     return jsonify({}), 200
 
 
-@city_views.route("/<string:city_id>/places",
+@app_views.route("/cities/<string:city_id>/places",
                   methods=["POST"], strict_slashes=False)
 def created_place(city_id):
     """Same as State, create a new view for City"""

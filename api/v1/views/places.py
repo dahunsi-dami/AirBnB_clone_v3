@@ -5,22 +5,27 @@ Same as State, create a new view for City
 
 from flask import abort, Flask, jsonify, request
 from api.v1.views import app_views
-from models.base_model import BaseModel
 from models import storage
+from models.place import Place
+from models.city import City
+from models.user import User
 from models.state import State
 
-
-@app_views.route("/api/v1/cities/<city_id>/places",
+@app_views.route("/api/v1/cities/<string:city_id>/places",
                  methods=['GET'], strict_slashes=False)
 def Listcity(city_id):
     """Same as State, create a new view for City"""
-    listc = storage.get(City, city_id)
+    place_list = []
+    lis = storage.get(City, city_id)
 
-    if listc is None:
+    if lis is None:
         abort(404)
+    for obj in lis.places:
+        place_list.append(obj.to_dict())
+    return jsonify(place_list)
 
 
-@app_views.route("/places/<place_id>",
+@app_views.route("/places/<string:place_id>",
                  methods=['GET'], strict_slashes=False)
 def placelist(place_id):
     """Same as State, create a new view for City"""
@@ -28,9 +33,10 @@ def placelist(place_id):
 
     if citic is None:
         abort(404)
+    return jsonify(citic.to_dict())
 
 
-@app_views.route("/places/<place_id>",
+@app_views.route("/places/<string:place_id>",
                  methods=["DELETE"], strict_slashes=False)
 def deleted_place(place_id):
     """Same as State, create a new view for City"""
@@ -45,7 +51,7 @@ def deleted_place(place_id):
     return jsonify({}), 200
 
 
-@app_views.route("/cities/<city_id>/places",
+@app_views.route("/cities/<string:city_id>/places",
                  methods=["POST"], strict_slashes=False)
 def created_place(city_id):
     """Same as State, create a new view for City"""
@@ -66,13 +72,15 @@ def created_place(city_id):
     if 'user_id' not in new_data:
         abort(400, "Missing user_id")
 
+    data["user_id"] = user_id
+    data["city_id"] = city_id
     new_place = Place(**data)
     storage.save()
 
     return jsonify(new_place.to_dict()), 201
 
 
-@app_views.route("/places/<place_id>",
+@app_views.route("/places/<string:place_id>",
                  methods=["POST"], strict_slashes=False)
 def put_place(place_id):
     """Same as State, create a new view for City"""

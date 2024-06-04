@@ -2,12 +2,11 @@
 """
 Same as State, create a new view for City
 """
-from flask import abort, Flask, jsonify, request
 from api.v1.views import app_views
-from models.base_model import BaseModel
-from models import storage
-from models.review import Review
+from flask import abort, Flask, jsonify, request
 from models.place import Place
+from models.review import Review
+from models import storage
 
 
 @app_views.route("/places/<string:place_id>/reviews",
